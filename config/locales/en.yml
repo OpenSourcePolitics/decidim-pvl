@@ -89,18 +89,20 @@ en:
       registrations:
         new:
           already_have_an_account?: Already have an account?
-          newsletter: Newsletter
-          newsletter_title: Newsletter title
-          nickname_help: Nickname help
-          password_help: Password help
-          sign_in: Sign in
+          newsletter: Receive an occasional newsletter with relevant information
+          newsletter_title: Contact permission
+          nickname_help: Your alias in %{organization}. Can only contain letters, numbers, '-' and '_'.
+          password_help: "%{minimun_characters} characters minimum, must not be too common (e.g. 123456) and must be different from your nickname and your email."
+          sign_in: Log in
           sign_up: Sign up
-          subtitle: Subtitle
-          terms: Terms
-          tos_agreement: Tos agreement
-          tos_title: Tos title
-          userfirstname_help: First name
-          username_help: Username help
+          sign_up_as:
+            legend: Sign up as
+          subtitle: Sign up to participate in discussions and support proposals.
+          terms: the terms and conditions of use
+          tos_agreement: By signing up you agree to %{link}.
+          tos_title: Terms of Service
+          username_help: Public name that appears on your posts. With the aim of guaranteeing the anonymity, can be any name.
+          user_firstname_help: Public name that appears on your posts. With the aim of guaranteeing the anonymity, can be any name.
       sessions:
         new:
           sign_in_disabled: Sign in disabled

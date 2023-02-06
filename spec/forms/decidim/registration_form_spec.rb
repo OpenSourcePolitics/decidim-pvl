@@ -125,6 +125,12 @@ module Decidim
       it { is_expected.to be_invalid }
     end
 
+    context "when the firstname is an email" do
+      let(:firstname) { "test@example.org" }
+
+      it { is_expected.to be_invalid }
+    end
+
     context "when the nickname has spaces" do
       let(:nickname) { "test example" }
 

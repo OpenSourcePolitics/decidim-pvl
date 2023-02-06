@@ -17,6 +17,7 @@ shared_examples "on/off registration hide nickname" do
 
       within ".new_user" do
         fill_in :registration_user_email, with: "user@example.org"
+        fill_in :registration_user_name, with: "Agent Smith"
         fill_in :registration_user_firstname, with: "John"
         fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
         check :registration_user_tos_agreement
@@ -39,6 +40,7 @@ shared_examples "on/off registration hide nickname" do
 
         within ".new_user" do
           fill_in :registration_user_email, with: "user@example.org"
+          fill_in :registration_user_name, with: "Agent Smith"
           fill_in :registration_user_firstname, with: "John"
           fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
           check :registration_user_tos_agreement
@@ -108,6 +110,7 @@ shared_examples "on/off registration hide nickname" do
 
         within ".new_user" do
           fill_in :registration_user_email, with: "agent@example.org"
+          fill_in :registration_user_name, with: "Agent Smith"
           fill_in :registration_user_firstname, with: "John"
           fill_in :registration_user_nickname, with: "agent_smith_2"
           fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
