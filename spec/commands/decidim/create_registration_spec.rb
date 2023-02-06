@@ -16,7 +16,7 @@ module Decidim
         let(:password_confirmation) { password }
         let(:tos_agreement) { "1" }
         let(:newsletter) { "1" }
-        let(:current_locale) { "es" }
+        let(:current_locale) { "en" }
 
         let(:form_params) do
           {

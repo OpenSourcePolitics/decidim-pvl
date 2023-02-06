@@ -6,6 +6,7 @@ module Decidim
     mimic :user
 
     attribute :name, String
+    attribute :firstname, String
     attribute :nickname, String
     attribute :email, String
     attribute :password, String
@@ -15,6 +16,7 @@ module Decidim
     attribute :current_locale, String
 
     validates :name, presence: true, format: { with: Decidim::User::REGEXP_NAME }
+    validates :firstname, presence: true, format: { with: Decidim::User::REGEXP_NAME }
     validates :nickname, presence: true, format: { with: Decidim::User::REGEXP_NICKNAME }, length: { maximum: Decidim::User.nickname_max_length }
     validates :email, presence: true, "valid_email_2/email": { disposable: true }
     validates :password, confirmation: true
