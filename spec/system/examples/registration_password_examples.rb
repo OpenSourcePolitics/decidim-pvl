@@ -10,6 +10,7 @@ shared_examples "on/off registration passwords" do
     it "does not show password confirmation" do
       expect(page).to have_content("Sign up to participate")
       expect(page).to have_field("registration_user_name", with: "")
+      expect(page).to have_field("registration_user_firstname", with: "")
       expect(page).to have_field("registration_user_nickname", with: "")
       expect(page).to have_field("registration_user_email", with: "")
       expect(page).to have_field("registration_user_password", with: "")
@@ -22,6 +23,7 @@ shared_examples "on/off registration passwords" do
       within ".new_user" do
         fill_in :registration_user_email, with: "user@example.org"
         fill_in :registration_user_name, with: "Responsible Citizen"
+        fill_in :registration_user_firstname, with: "John"
         fill_in :registration_user_nickname, with: "responsible"
         fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
         check :registration_user_tos_agreement
@@ -43,6 +45,7 @@ shared_examples "on/off registration passwords" do
         within ".new_user" do
           fill_in :registration_user_email, with: "user@example.org"
           fill_in :registration_user_name, with: "Responsible Citizen"
+          fill_in :registration_user_firstname, with: "John"
           fill_in :registration_user_nickname, with: "responsible"
           fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
           check :registration_user_tos_agreement
@@ -64,6 +67,7 @@ shared_examples "on/off registration passwords" do
     it "shows password confirmation" do
       expect(page).to have_content("Sign up to participate")
       expect(page).to have_field("registration_user_name", with: "")
+      expect(page).to have_field("registration_user_firstname", with: "")
       expect(page).to have_field("registration_user_nickname", with: "")
       expect(page).to have_field("registration_user_email", with: "")
       expect(page).to have_field("registration_user_password", with: "")
@@ -77,6 +81,7 @@ shared_examples "on/off registration passwords" do
       within ".new_user" do
         fill_in :registration_user_email, with: "user@example.org"
         fill_in :registration_user_name, with: "Responsible Citizen"
+        fill_in :registration_user_firstname, with: "John"
         fill_in :registration_user_nickname, with: "responsible"
         fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
         fill_in :registration_user_password_confirmation, with: "nonsense"
@@ -105,6 +110,7 @@ shared_examples "on/off registration passwords" do
         within ".new_user" do
           fill_in :registration_user_email, with: "user@example.org"
           fill_in :registration_user_name, with: "Responsible Citizen"
+          fill_in :registration_user_firstname, with: "John"
           fill_in :registration_user_nickname, with: "responsible"
           fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
           fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
