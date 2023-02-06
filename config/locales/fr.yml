@@ -86,6 +86,21 @@ fr:
             one: Vous n'avez pas finalisé votre vote
             other: Vous n'avez pas finalisé vos votes
     devise:
+      registrations:
+        new:
+          already_have_an_account?: Already have an account?
+          newsletter: Newsletter
+          newsletter_title: Newsletter title
+          nickname_help: Nickname help
+          password_help: Password help
+          sign_in: Sign in
+          sign_up: Sign up
+          subtitle: Subtitle
+          terms: Terms
+          tos_agreement: Tos agreement
+          tos_title: Tos title
+          userfirstname_help: First name
+          username_help: Username help
       sessions:
         new:
           sign_in_disabled: Vous pouvez accéder avec un compte externe
@@ -232,10 +247,15 @@ fr:
             osp_authorization_handler: Vérifier avec le formulaire de vérification de l'identité
             osp_authorization_workflow: Vérifier avec le formulaire de vérification de l'identité
   devise:
+    failure:
+      invited: Invited
     passwords:
       new:
         forgot_your_password: Mot de passe oublié ?
         send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation du mot de passe
+    registrations:
+      new:
+        sign_up: Sign up
     sessions:
       new:
         sign_in: S'identifier
