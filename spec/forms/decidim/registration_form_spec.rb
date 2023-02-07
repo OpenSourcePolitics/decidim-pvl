@@ -14,7 +14,7 @@ module Decidim
 
     let(:organization) { create(:organization) }
     let(:name) { "User" }
-    let(:firstname) { "John" }
+    let(:firstname) { "User" }
     let(:nickname) { "justme" }
     let(:email) { "user@example.org" }
     let(:password) { "S4CGQ9AM4ttJdPKS" }
@@ -25,7 +25,6 @@ module Decidim
       {
         name: name,
         firstname: firstname,
-        nickname: nickname,
         email: email,
         password: password,
         password_confirmation: password_confirmation,
@@ -39,132 +38,44 @@ module Decidim
       }
     end
 
-    context "when everything is OK" do
+    context "when hide_nickname is active" do
       it { is_expected.to be_valid }
+
+      it "generates a nickname" do
+        expect(subject.nickname).to eq("user")
+      end
     end
 
-    context "when the email is a disposable account" do
-      let(:email) { "user@mailbox92.biz" }
+    context "when hide_nickname is inactive" do
+      before do
+        allow(Decidim::FriendlySignup).to receive(:hide_nickname).and_return(false)
+      end
 
       it { is_expected.to be_invalid }
-    end
 
-    context "when the name is not present" do
-      let(:name) { nil }
+      it "does not generate a nickname" do
+        expect(subject.nickname).to be_blank
+      end
 
-      it { is_expected.to be_invalid }
-    end
+      context "when everything is OK" do
+        let(:attributes) do
+          {
+            name: name,
+            firstname: firstname,
+            nickname: nickname,
+            email: email,
+            password: password,
+            password_confirmation: password_confirmation,
+            tos_agreement: tos_agreement
+          }
+        end
 
-    context "when the firstname is not present" do
-      let(:firstname) { nil }
+        it { is_expected.to be_valid }
 
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the nickname is not present" do
-      let(:nickname) { nil }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the email is not present" do
-      let(:email) { nil }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the email already exists" do
-      context "and a user has the email" do
-        let!(:user) { create(:user, organization: organization, email: email) }
-
-        it { is_expected.to be_invalid }
-
-        context "and is pending to accept the invitation" do
-          let!(:user) { create(:user, organization: organization, email: email, invitation_token: "foo", invitation_accepted_at: nil) }
-
-          it { is_expected.to be_invalid }
+        it "uses params nickname" do
+          expect(subject.nickname).to eq("justme")
         end
       end
-
-      context "and a user_group has the email" do
-        let!(:user_group) { create(:user_group, organization: organization, email: email) }
-
-        it { is_expected.to be_invalid }
-      end
-    end
-
-    context "when the nickname already exists" do
-      context "and a user has the nickname" do
-        let!(:user) { create(:user, organization: organization, nickname: nickname.upcase) }
-
-        it { is_expected.to be_invalid }
-
-        context "and is pending to accept the invitation" do
-          let!(:user) { create(:user, organization: organization, nickname: nickname, invitation_token: "foo", invitation_accepted_at: nil) }
-
-          it { is_expected.to be_valid }
-        end
-      end
-
-      context "and a user_group has the nickname" do
-        let!(:user_group) { create(:user_group, organization: organization, nickname: nickname) }
-
-        it { is_expected.to be_invalid }
-      end
-    end
-
-    context "when the nickname is too long" do
-      let(:nickname) { "verylongnicknamethatcreatesanerror" }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the name is an email" do
-      let(:name) { "test@example.org" }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the firstname is an email" do
-      let(:firstname) { "test@example.org" }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the nickname has spaces" do
-      let(:nickname) { "test example" }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the password is not present" do
-      let(:password) { nil }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the password is weak" do
-      let(:password) { "aaaabbbbcccc" }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the password confirmation is not present" do
-      let(:password_confirmation) { nil }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the password confirmation is different from password" do
-      let(:password_confirmation) { "invalid" }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when the tos_agreement is not accepted" do
-      let(:tos_agreement) { "0" }
-
-      it { is_expected.to be_invalid }
     end
   end
 end

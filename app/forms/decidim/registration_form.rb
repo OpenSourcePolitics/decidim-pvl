@@ -3,6 +3,7 @@
 module Decidim
   # A form object used to handle user registrations
   class RegistrationForm < Form
+    include Decidim::FriendlySignup::AutoNickname
     mimic :user
 
     attribute :name, String
