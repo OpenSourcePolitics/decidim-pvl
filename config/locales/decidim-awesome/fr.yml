@@ -79,10 +79,6 @@ fr:
         create:
           error: Erreur lors de l'envoi de l'image
           success: Image envoyée avec succès!
-    devise:
-      registrations:
-        new:
-          userfirstname_help: "Prénom"
   layouts:
     decidim:
       admin:
