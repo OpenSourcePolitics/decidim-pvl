@@ -22,6 +22,12 @@ en:
             other: "%{count} users will be reminded."
         new:
           submit: Send
+      users:
+        form:
+          email: Email
+          firstname: Firstname
+          name: Name
+          role: Role
     amendments:
       emendation:
         announcement:
