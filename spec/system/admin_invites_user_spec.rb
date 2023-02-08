@@ -25,7 +25,6 @@ describe "Admin invite user", type: :system do
       expect(page).to have_field("user_email", with: "")
     end
 
-
     it "invite user" do
       fill_in "user_name", with: "Doe"
       fill_in "user_firstname", with: "John"
