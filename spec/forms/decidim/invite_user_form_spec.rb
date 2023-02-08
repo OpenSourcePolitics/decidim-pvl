@@ -22,6 +22,7 @@ module Decidim
       {
         email: "NewAdmin@example.org",
         name: "New Admin",
+        firstname: "John",
         invitation_instructions: "invite_admin",
         role: "admin",
         organization: form_organization,
@@ -35,6 +36,10 @@ module Decidim
 
     it "downcases the email" do
       expect(subject.email).to eq("newadmin@example.org")
+    end
+
+    it "creates the name" do
+      expect(subject.name).to eq("John New Admin")
     end
 
     context "when an admin exists for the given email" do
@@ -66,6 +71,21 @@ module Decidim
         {
           email: "NewAdmin@example.org",
           name: "New Admin ()",
+          invitation_instructions: "invite_admin",
+          role: "admin",
+          organization: form_organization,
+          invited_by: form_user
+        }
+      end
+
+      it { is_expected.to be_invalid }
+    end
+    context "when user firstname contains invalid characters" do
+      let(:attributes) do
+        {
+          email: "NewAdmin@example.org",
+          name: "New Admin",
+          firstname: "John ()",
           invitation_instructions: "invite_admin",
           role: "admin",
           organization: form_organization,

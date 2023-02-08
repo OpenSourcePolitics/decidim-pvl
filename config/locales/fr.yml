@@ -25,6 +25,7 @@ fr:
       users:
         form:
           email: Email
+          firstname: Firstname
           name: Name
           role: Role
     amendments:

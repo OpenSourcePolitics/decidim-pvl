@@ -8,19 +8,28 @@ module Decidim
 
     attribute :email, String
     attribute :name, String
+    attribute :firstname, String
     attribute :invitation_instructions, String
     attribute :organization, Decidim::Organization
     attribute :invited_by, Decidim::User
     attribute :role, String
 
-    validates :email, :name, :organization, :invitation_instructions, presence: true
+    validates :email, :name, :firstname, :organization, :invitation_instructions, presence: true
     validates :role, inclusion: { in: Decidim::User::Roles.all }
 
-    validates :name, format: { with: /\A(?!.*[<>?%&\^*#@()\[\]=+:;"{}\\|])/ }
+    validates :name, :firstname, format: { with: /\A(?!.*[<>?%&\^*#@()\[\]=+:;"{}\\|])/ }
     validate :admin_uniqueness
 
     def email
       super&.downcase
+    end
+
+    def name
+      if firstname.present?
+        "#{firstname} #{super}"
+      else
+        super
+      end
     end
 
     def organization
