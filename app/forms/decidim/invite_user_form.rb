@@ -14,7 +14,7 @@ module Decidim
     attribute :invited_by, Decidim::User
     attribute :role, String
 
-    validates :email, :name, :firstname, :organization, :invitation_instructions, presence: true
+    validates :email, :name, :organization, :invitation_instructions, presence: true
     validates :role, inclusion: { in: Decidim::User::Roles.all }
 
     validates :name, :firstname, format: { with: /\A(?!.*[<>?%&\^*#@()\[\]=+:;"{}\\|])/ }
