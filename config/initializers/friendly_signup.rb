@@ -5,7 +5,7 @@ Decidim::FriendlySignup.configure do |config|
   config.override_passwords = true
 
   # Automatically validate user inputs in the register form (default is true):
-  config.use_instant_validation = true
+  config.use_instant_validation = false
 
   # Hide nickname field and create one automatically from user's name or email (default is true)
   config.hide_nickname = true
