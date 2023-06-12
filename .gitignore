@@ -87,7 +87,7 @@ vendor/cache
 # Ignore RSpec failures
 .rspec-failures
 
-/public/packs
+/public/decidim-packs
 /public/packs-test
 /node_modules
 /yarn-error.log
