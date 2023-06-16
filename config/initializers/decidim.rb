@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
+require "decidim-app/config"
+require "decidim/dev/dummy_translator"
+
 Decidim.configure do |config|
   config.application_name = "OSP Agora"
   config.mailer_sender = "OSP Agora <ne-pas-repondre@opensourcepolitics.eu>"
 
   # Change these lines to set your preferred locales
-  config.default_locale = :en
-  config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "en,fr").split(",").map(&:to_sym)
+  if Rails.env.production?
+    config.default_locale = ENV.fetch("DEFAULT_LOCALE", "fr").to_sym
+    config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "fr").split(",").map(&:to_sym)
+  else
+    config.default_locale = ENV.fetch("DEFAULT_LOCALE", "en").to_sym
+    config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "en,fr").split(",").map(&:to_sym)
+  end
 
   # Timeout session
   config.expire_session_after = ENV.fetch("DECIDIM_SESSION_TIMEOUT", 180).to_i.minutes
 
   config.maximum_attachment_height_or_width = 6000
-
-  # Rack Attack configs
-  # Max requests in a time period to prevent DoS attacks. Only applied on production.
-  config.throttling_max_requests = Rails.application.secrets.decidim[:throttling_max_requests].to_i
-
-  # Time window in which the throttling is applied.
-  config.throttling_period = Rails.application.secrets.decidim[:throttling_period].to_i.minutes
 
   # Whether SSL should be forced or not (only in production).
   config.force_ssl = (ENV.fetch("FORCE_SSL", "1") == "1") && Rails.env.production?
@@ -32,14 +33,6 @@ Decidim.configure do |config|
       address_format: [%w(houseNumber street), "city", "country"]
     }
   }
-
-  if defined?(Decidim::Initiatives) && defined?(Decidim::Initiatives.do_not_require_authorization)
-    # puts "Decidim::Initiatives are loaded"
-    Decidim::Initiatives.minimum_committee_members = 1
-    Decidim::Initiatives.do_not_require_authorization = true
-    Decidim::Initiatives.print_enabled = false
-    Decidim::Initiatives.face_to_face_voting_allowed = false
-  end
 
   # Custom resource reference generator method
   # config.resource_reference_generator = lambda do |resource, feature|
@@ -106,6 +99,13 @@ Decidim.configure do |config|
   end
 
   config.base_uploads_path = "#{ENV["HEROKU_APP_NAME"]}/" if ENV["HEROKU_APP_NAME"].present?
+
+  # Machine Translation Configuration
+  #
+  # Enable machine translations
+  config.enable_machine_translations = Rails.application.secrets.translator[:enabled]
+  config.machine_translation_service = "DeeplTranslator"
+  config.machine_translation_delay = Rails.application.secrets.translator[:delay]
 end
 
 Decidim.module_eval do
