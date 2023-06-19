@@ -26,15 +26,15 @@ module SentrySetup
     def server_metadata
       JSON.parse(`scw-metadata-json`)
     rescue Errno::ENOENT, TypeError
-      nil
+      {}
     end
 
     def hostname
-      server_metadata&.dig("hostname")
+      server_metadata["hostname"]
     end
 
     def ip
-      server_metadata&.dig("public_ip", "address")
+      server_metadata.dig("public_ip", "address")
     end
   end
 end
