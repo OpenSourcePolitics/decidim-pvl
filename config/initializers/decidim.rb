@@ -29,6 +29,14 @@ Decidim.configure do |config|
     }
   }
 
+  if defined?(Decidim::Initiatives) && defined?(Decidim::Initiatives.do_not_require_authorization)
+    # puts "Decidim::Initiatives are loaded"
+    Decidim::Initiatives.minimum_committee_members = 1
+    Decidim::Initiatives.do_not_require_authorization = true
+    Decidim::Initiatives.print_enabled = false
+    Decidim::Initiatives.face_to_face_voting_allowed = false
+  end
+
   # Custom resource reference generator method
   # config.resource_reference_generator = lambda do |resource, feature|
   #   # Implement your custom method to generate resources references
@@ -94,13 +102,6 @@ Decidim.configure do |config|
   end
 
   config.base_uploads_path = "#{ENV["HEROKU_APP_NAME"]}/" if ENV["HEROKU_APP_NAME"].present?
-
-  # Machine Translation Configuration
-  #
-  # Enable machine translations
-  config.enable_machine_translations = Rails.application.secrets.translator[:enabled]
-  config.machine_translation_service = "DeeplTranslator"
-  config.machine_translation_delay = Rails.application.secrets.translator[:delay]
 end
 
 Decidim.module_eval do
