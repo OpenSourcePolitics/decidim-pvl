@@ -95,6 +95,7 @@ fr:
       registrations:
         new:
           already_have_an_account?: Already have an account?
+          firstname: Votre prénom
           newsletter: Newsletter
           newsletter_title: Newsletter title
           nickname: Nickname
