@@ -1,24 +1,20 @@
 # frozen_string_literal: true
 
+require "decidim_app/config"
+
 Decidim.configure do |config|
   config.application_name = "OSP Agora"
   config.mailer_sender = "OSP Agora <ne-pas-repondre@opensourcepolitics.eu>"
 
   # Change these lines to set your preferred locales
-  config.default_locale = :en
+
+  config.default_locale = ENV.fetch("DEFAULT_LOCALE", "en").to_sym
   config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "en,fr").split(",").map(&:to_sym)
 
   # Timeout session
   config.expire_session_after = ENV.fetch("DECIDIM_SESSION_TIMEOUT", 180).to_i.minutes
 
   config.maximum_attachment_height_or_width = 6000
-
-  # Rack Attack configs
-  # Max requests in a time period to prevent DoS attacks. Only applied on production.
-  config.throttling_max_requests = Rails.application.secrets.decidim[:throttling_max_requests].to_i
-
-  # Time window in which the throttling is applied.
-  config.throttling_period = Rails.application.secrets.decidim[:throttling_period].to_i.minutes
 
   # Whether SSL should be forced or not (only in production).
   config.force_ssl = (ENV.fetch("FORCE_SSL", "1") == "1") && Rails.env.production?
